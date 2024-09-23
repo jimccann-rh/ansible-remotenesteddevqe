@@ -1,7 +1,7 @@
 ---
 
-- hosts: localhost
-  connection: local
+- hosts: remotedevqe
+  #connection: local
   become: false
   gather_facts: false
 
@@ -23,8 +23,8 @@
     - always
 
 - name: create nested VM's
-  hosts: localhost
-  connection: local
+  hosts: remotedevqe
+  #connection: local
   gather_facts: true
   vars:
     templocation: "{{ ansible_env.HOME }}/build"
@@ -100,8 +100,8 @@
       tags:
         - vcnested
 
-- hosts: localhost
-  connection: local
+- hosts: remotedevqe
+  #connection: local
   name: ESXi add vcenter
   gather_facts: False
   serial: 1
@@ -140,8 +140,8 @@
        - vcenterhost
 
 - name: REMOVE nested VM's
-  hosts: localhost
-  connection: local
+  hosts: remotedevqe
+  #connection: local
   gather_facts: true
   vars:
     removevsphere: false
