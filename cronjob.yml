@@ -16,7 +16,7 @@
       - "month: {{ cron_time.split()[3] }}"
       - "{{ ansible_user }}"
       - "{{ target_vcs }}"
-      - "{{ cron_job }}"
+      #- "{{ cron_job }}"
 
 - name: Create the cron job
   cron:
