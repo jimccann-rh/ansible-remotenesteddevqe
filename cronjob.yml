@@ -7,7 +7,12 @@
     #cron_time: "{{ lookup('pipe', 'date -d \"+24 hours\" +\"%M %H %d %m %Y\"') }}"
 
 - debug:
-    msg: "{{ cron_time }}"
+    msg: 
+      - "{{ cron_time }}"
+      - "minute: {{ cron_time.split()[0] }}"
+      - "hour: {{ cron_time.split()[1] }}"
+      - "day: {{ cron_time.split()[2] }}"
+      - "month: {{ cron_time.split()[3] }}"
 
 - name: Create the cron job
   cron:
