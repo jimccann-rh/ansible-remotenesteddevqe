@@ -13,6 +13,8 @@
       - "hour: {{ cron_time.split()[1] }}"
       - "day: {{ cron_time.split()[2] }}"
       - "month: {{ cron_time.split()[3] }}"
+      - "{{ ansible_user }}"
+      - "{{ target_vcs }}"
 
 - name: Create the cron job
   cron:
