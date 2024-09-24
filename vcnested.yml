@@ -111,7 +111,7 @@
 
     - name: Pause while reboots itself
       pause:
-        seconds: 180
+        seconds: 300
 
     - name: Retrieve guest info
       community.vmware.vmware_guest_info:
