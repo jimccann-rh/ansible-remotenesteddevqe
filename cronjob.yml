@@ -6,6 +6,9 @@
     cron_time: "{{ lookup('pipe', 'date -d \"+1 hours\" +\"%M %H %d %m %Y\"') }}"
     #cron_time: "{{ lookup('pipe', 'date -d \"+24 hours\" +\"%M %H %d %m %Y\"') }}"
 
+- debug:
+    msg: "{{ cron_time }}"
+
 - name: Create the cron job
   cron:
     state: present
