@@ -11,13 +11,15 @@
       ansible.builtin.add_host:
         name: '{{ item }}'
         groups: esxi
-      loop: '{{ target_hosts.split('\n') | list }}'
+      loop: '{{ target_hosts.split('\n') }}'
+      #loop: '{{ target_hosts.split('\n') | list }}'
 
     - name: Add host to group vc
       ansible.builtin.add_host:
         name: '{{ item }}'
         groups: vc
-      loop: '{{ target_vcs.split('\n') | list }}'
+      loop: '{{ target_vcs.split('\n') }}'
+      #loop: '{{ target_vcs.split('\n') | list }}'
 
   tags:
     - always
