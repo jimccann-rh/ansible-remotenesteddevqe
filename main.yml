@@ -44,9 +44,9 @@
 
   module_defaults:
     group/vmware:
-      hostname: "{{ lookup('ansible.builtin.env', 'MAINVCHOSTNAME') }}"
-      username: "{{ lookup('ansible.builtin.env', 'MAINVCUSERNAME') }}"
-      password: "{{ lookup('ansible.builtin.env', 'MAINVCPASSWORD') }}"
+      hostname: "{{ vc_hostname }}"
+      username: "{{ vc_username }}"
+      password: "{{ vc_password }}"
       validate_certs: false
 
   tasks:
@@ -155,9 +155,9 @@
 
   module_defaults:
     group/vmware:
-      hostname: "{{ lookup('ansible.builtin.env', 'MAINVCHOSTNAME') }}"
-      username: "{{ lookup('ansible.builtin.env', 'MAINVCUSERNAME') }}"
-      password: "{{ lookup('ansible.builtin.env', 'MAINVCPASSWORD') }}"
+      hostname: "{{ vc_hostname }}"
+      username: "{{ vc_username }}"
+      password: "{{ vc_password }}"
       validate_certs: false
 
   tasks:
