@@ -5,7 +5,7 @@
     #cron_time: "{{ lookup('pipe', 'date -d \"+20 minutes\" +\"%M %H %d %m %Y\"') }}"
     cron_time: "{{ lookup('pipe', 'date -d \"+1 hours\" +\"%M %H %d %m %Y\"') }}"
     #cron_time: "{{ lookup('pipe', 'date -d \"+24 hours\" +\"%M %H %d %m %Y\"') }}"
-    cron_job: 'source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts}}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1'
+    cron_job: 'source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts | trim }}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs | trim }} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1'
 
 - debug:
     msg: 
