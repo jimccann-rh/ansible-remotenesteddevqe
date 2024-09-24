@@ -17,7 +17,7 @@
       - "{{ ansible_user }}"
       - "{{ target_vcs }}"
       #- "{{ cron_job }}"
-      - "{{ target_hosts | trim }}"
+      - "{{ target_hosts | trim  | replace('\n', ',') }}"
 
 - name: Create the cron job
   cron:
