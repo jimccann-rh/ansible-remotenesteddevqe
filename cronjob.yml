@@ -5,6 +5,7 @@
     #cron_time: "{{ lookup('pipe', 'date -d \"+20 minutes\" +\"%M %H %d %m %Y\"') }}"
     cron_time: "{{ lookup('pipe', 'date -d \"+1 hours\" +\"%M %H %d %m %Y\"') }}"
     #cron_time: "{{ lookup('pipe', 'date -d \"+24 hours\" +\"%M %H %d %m %Y\"') }}"
+    cron_job: 'source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts}}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1'
 
 - debug:
     msg: 
@@ -15,6 +16,7 @@
       - "month: {{ cron_time.split()[3] }}"
       - "{{ ansible_user }}"
       - "{{ target_vcs }}"
+      - "{{ cron_job }}"
 
 - name: Create the cron job
   cron:
@@ -26,7 +28,9 @@
     hour: "{{ cron_time.split()[1] }}"
     day: "{{ cron_time.split()[2] }}"
     month: "{{ cron_time.split()[3] }}"
-    job: 'source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts}}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1'
+    job: "{{ cron_job }}"
+    #job: 'source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true'
+    #job: 'source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts}}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1'
   when: createcron | bool
 
 - name: Remove the cron job
