@@ -13,10 +13,18 @@ vc_fact_cluster2: "nested-devqecluster-2"
 vc_fact_deployment_network: "segment-884-ipv4-6-nested"
 vc_fact_deployment_network2: "segment-884-ipv4-6-nested"
 # below is for nested and is the real vCenter to deploy the nested vc to
-vc_hostname: "{{ lookup('ansible.builtin.env', 'MAINVCHOSTNAME') }}"
-vc_username: "{{ lookup('ansible.builtin.env', 'MAINVCUSERNAME') }}"
-vc_password: "{{ lookup('ansible.builtin.env', 'MAINVCPASSWORD') }}"
+vc_hostname: "{{ custom_hostname }}"
+#vc_hostname: "{{ lookup('ansible.builtin.env', 'MAINVCHOSTNAME') }}"
+vc_username: "{{ custom_username }}"
+#vc_username: "{{ lookup('ansible.builtin.env', 'MAINVCUSERNAME') }}"
+vc_password: "{{ custom_password }}"
+#vc_password: "{{ lookup('ansible.builtin.env', 'MAINVCPASSWORD') }}"
 
 vc_datacenter: "devqedatacenter-1"
 vc_cluster: "devqecluster-1"
 vc_folder: "nested-limited"
+
+
+#VMWARE_HOST
+#VMWARE_USER
+#VMWARE_PASSWORD
