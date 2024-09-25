@@ -48,4 +48,5 @@
     name: "script_cron {{ target_vcs | trim }}"
   when: cleanupcron | bool
 
-
+- debug:
+    msg:  "script_cron {{ target_vcs | trim }}"
