@@ -12,6 +12,7 @@
 # sudo dnf install genisoimage
 # sudo dnf install python-pyvmomi
 
+# ansible-galaxy collection install community.vmware
 
 - name: Install the needed pacakages
   ansible.builtin.package:
