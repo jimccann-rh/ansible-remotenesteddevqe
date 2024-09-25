@@ -2,8 +2,8 @@
 
 - name: how long to let environment run
   set_fact:
-    cron_time: "{{ lookup('pipe', 'date -d \"+10 minutes\" +\"%M %H %d %m %Y\"') }}"
-    #cron_time: "{{ lookup('pipe', 'date -d \"+1 hours\" +\"%M %H %d %m %Y\"') }}"
+    #cron_time: "{{ lookup('pipe', 'date -d \"+10 minutes\" +\"%M %H %d %m %Y\"') }}"
+    cron_time: "{{ lookup('pipe', 'date -d \"+{{ howmanydays }} days\" +\"%M %H %d %m %Y\"') }}"
     #cron_time: "{{ lookup('pipe', 'date -d \"+24 hours\" +\"%M %H %d %m %Y\"') }}"
 
     converth: "{{ target_hosts | replace('\n', ', ') }}"

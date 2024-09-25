@@ -46,7 +46,8 @@
     esximemory: "131072"
     esxicpu: "20"
     testingesxi: false    
-    testingvc: false 
+    testingvc: false
+#    howmanydays: 1
 #    tempenviro: true 
 #    createcron: false
 #    cleanupcron: false
@@ -161,6 +162,8 @@
     createcron: false
     cleanupcron: false
     showinfo: true
+    howmanydays: 1
+#    tempenviro: true 
 
   collections:
     - community.general
