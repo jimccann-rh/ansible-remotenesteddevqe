@@ -1,36 +1,33 @@
 ---
 
-- name: Calculate the time 24 hours from now
+- name: how long to let environment run
   set_fact:
     #cron_time: "{{ lookup('pipe', 'date -d \"+20 minutes\" +\"%M %H %d %m %Y\"') }}"
     cron_time: "{{ lookup('pipe', 'date -d \"+1 hours\" +\"%M %H %d %m %Y\"') }}"
     #cron_time: "{{ lookup('pipe', 'date -d \"+24 hours\" +\"%M %H %d %m %Y\"') }}"
-    #cron_job: 'source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts | trim }}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs | trim }} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1'
-    #cron_job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts | trim  | replace('\n', ',') }}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs | trim | replace('\n', ',') }} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | trim  | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1
-    #cron_job:  source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{"["}}{{ target_hosts | replace('\n', ',') | quote }}{{"]"}} }' --extra-var='{"target_vcs"{{ ":"}} {{"["}}{{ target_vcs | replace('\n', ',') | quote }}{{"]"}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | trim  | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1 
 
     converth: "{{ target_hosts | replace('\n', ', ') }}"
     convertv: "{{ target_vcs | replace('\n', ', ') }}"
 
 
-- name: figure it out
+- name: set cron job fact
   set_fact:
     cron_job:  source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook --connection=local -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{"["}}{{ converth }}{{"]"}} }' --extra-var='{"target_vcs"{{ ":"}} {{"["}}{{ convertv }}{{"]"}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1 
 
 
 
-- debug:
-    msg: 
-      - "{{ cron_time }}"
-      - "minute: {{ cron_time.split()[0] }}"
-      - "hour: {{ cron_time.split()[1] }}"
-      - "day: {{ cron_time.split()[2] }}"
-      - "month: {{ cron_time.split()[3] }}"
-      - "{{ ansible_user }}"
-      - "{{ target_vcs }}"
-      - "{{ cron_job }}"
-      - "{{ target_hosts | replace('\n', ', ') }}"
-      #- "{{ target_hosts | trim  | replace('\n', ',') }}"
+#- debug:
+#    msg: 
+#      - "{{ cron_time }}"
+#      - "minute: {{ cron_time.split()[0] }}"
+#      - "hour: {{ cron_time.split()[1] }}"
+#      - "day: {{ cron_time.split()[2] }}"
+#      - "month: {{ cron_time.split()[3] }}"
+#      - "{{ ansible_user }}"
+#      - "{{ target_vcs }}"
+#      - "{{ cron_job }}"
+#      - "{{ target_hosts | replace('\n', ', ') }}"
+#      #- "{{ target_hosts | trim  | replace('\n', ',') }}"
 
 - name: Create the cron job
   cron:
@@ -43,10 +40,6 @@
     day: "{{ cron_time.split()[2] }}"
     month: "{{ cron_time.split()[3] }}"
     job: "{{ cron_job }}"
-    #job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true
-    #job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }}{{"["}}{{ target_hosts | replace('\n', ',') }}{{"]"}} }' --extra-var='{"target_vcs"{{ ":"}} {{"["}}{{ target_vcs | replace('\n', ',') }}{{"]"}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | trim  | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1
-    #job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts | trim  | replace('\n', ',') }}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs | trim | replace('\n', ',') }} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | trim  | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1
-    #job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{ target_hosts | trim }}}' --extra-var='{"target_vcs"{{ ":"}} {{ target_vcs | trim }} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1
   when: createcron | bool
 
 - name: Remove the cron job
