@@ -6,18 +6,31 @@
   gather_facts: false
 
   tasks:
+    - block:
+       - name: Add host to group esxi 
+         ansible.builtin.add_host:
+           name: '{{ item }}'
+           groups: esxi
+         loop: "{{ target_hosts.split('\n') | list }}"
+   
+       - name: Add host to group vc
+         ansible.builtin.add_host:
+           name: '{{ item }}'
+           groups: vc
+         loop: "{{ target_vcs.split('\n') | list }}"
+      rescue:
+       - name: Add host to group esxi
+         ansible.builtin.add_host:
+           name: '{{ item }}'
+           groups: esxi
+         loop: "{{ target_hosts | list }}"
+       
+       - name: Add host to group vc
+         ansible.builtin.add_host:
+           name: '{{ item }}'
+           groups: vc
+         loop: "{{ target_vcs | list }}"
 
-    - name: Add host to group esxi 
-      ansible.builtin.add_host:
-        name: '{{ item }}'
-        groups: esxi
-      loop: "{{ target_hosts.split('\n') | list }}"
-
-    - name: Add host to group vc
-      ansible.builtin.add_host:
-        name: '{{ item }}'
-        groups: vc
-      loop: "{{ target_vcs.split('\n') | list }}"
 
   tags:
     - always
