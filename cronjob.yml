@@ -16,18 +16,21 @@
 
 
 
-#- debug:
-#    msg: 
-#      - "{{ cron_time }}"
-#      - "minute: {{ cron_time.split()[0] }}"
-#      - "hour: {{ cron_time.split()[1] }}"
-#      - "day: {{ cron_time.split()[2] }}"
-#      - "month: {{ cron_time.split()[3] }}"
-#      - "{{ ansible_user }}"
-#      - "{{ target_vcs }}"
-#      - "{{ cron_job }}"
-#      - "{{ target_hosts | replace('\n', ', ') }}"
-#      #- "{{ target_hosts | trim  | replace('\n', ',') }}"
+- debug:
+    msg: 
+      - "{{ cron_time }}"
+      - "minute: {{ cron_time.split()[0] }}"
+      - "hour: {{ cron_time.split()[1] }}"
+      - "day: {{ cron_time.split()[2] }}"
+      - "month: {{ cron_time.split()[3] }}"
+      - "{{ ansible_user }}"
+      - "{{ target_vcs }}"
+      - "{{ cron_job }}"
+      - "{{ target_hosts | replace('\n', ', ') }}"
+      - "{{ converth }}"
+      - "{{ convertv }}"
+      - "script_cron {{ target_vcs | trim }}"
+      #- "{{ target_hosts | trim  | replace('\n', ',') }}"
 
 - name: Create the cron job
   cron:
