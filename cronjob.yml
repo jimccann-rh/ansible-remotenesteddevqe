@@ -35,7 +35,8 @@
 - name: Create the cron job
   cron:
     state: present
-    name: "script_cron {{ target_vcs | trim }}"
+    name: "script_cron {{ convertv }}"
+    #name: "script_cron {{ target_vcs | trim }}"
     user: "{{ ansible_user }}" 
     #user: "{{ lookup('env', 'USER') }}" 
     minute: "{{ cron_time.split()[0] }}"
@@ -48,8 +49,11 @@
 - name: Remove the cron job
   cron:
     state: absent
-    name: "script_cron {{ target_vcs | trim }}"
+    name: "script_cron {{ convertv }}"
+    #name: "script_cron {{ target_vcs | trim }}"
   when: cleanupcron | bool
 
 - debug:
-    msg:  "script_cron {{ target_vcs | trim }}"
+    msg:  
+      - "script_cron {{ target_vcs | trim }}"
+      - "script_cron {{ convertv }}"
