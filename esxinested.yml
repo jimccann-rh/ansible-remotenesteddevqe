@@ -154,8 +154,8 @@
   retries: 60
   delay: 5
 
-- debug:
-    msg: "{{ guest_info }}"
+#- debug:
+#    msg: "{{ guest_info }}"
 
 - name: "Does ESXi virtual machine {{ host_fact_hostname }} exist get ip"
   community.vmware.vmware_guest_info:
