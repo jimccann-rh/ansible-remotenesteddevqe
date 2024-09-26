@@ -77,15 +77,11 @@
     - name: Gather cluster info from given datacenter
       community.vmware.vmware_cluster_info:
         cluster_name: "{{ vc_cluster }}"
-#        hostname: "{{ vc_hostname }}"
-#        username: "{{ vc_username }}"
-#        password: "{{ vc_password }}"
-#        validate_certs: false
       register: cluster_info
 
 
     - debug:
-        msg: "{{ cluster_info }}"
+        msg: "{{ cluster_info['resource_summary'] }}"
 
     - block:
        - name: Needed packages on system
