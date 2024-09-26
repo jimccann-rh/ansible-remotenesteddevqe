@@ -99,7 +99,7 @@
       fail:
       when: 
         - resource_name == "cpuUsedMHz" and resource_value > 65000000
-        - resource_name == "memUsedMB" and resource_value > 65000000
+        - resource_name == "memUsedMB" and resource_value < 65000000
 
 
 
