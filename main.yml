@@ -77,6 +77,10 @@
     - name: Gather cluster info from given datacenter
       community.vmware.vmware_cluster_info:
         datacenter: "{{ vc_cluster }}"
+        hostname: "{{ vc_hostname }}"
+        username: "{{ vc_username }}"
+        password: "{{ vc_password }}"
+        validate_certs: false
       register: cluster_info
 
 
