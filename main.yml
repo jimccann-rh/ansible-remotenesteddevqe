@@ -77,7 +77,6 @@
     - name: Gather cluster info from given datacenter
       community.vmware.vmware_cluster_info:
         datacenter: "{{ vc_cluster }}"
-      delegate_to: localhost
       register: cluster_info
 
 
