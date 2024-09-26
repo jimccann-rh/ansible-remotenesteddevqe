@@ -29,7 +29,7 @@
       #- "{{ cron_job }}"
       #- "{{ target_hosts | replace('\n', ', ') }}"
       #- "{{ converth }}"
-      #- "{{ convertv }}"
+      - "{{ convertv }}"
       #- "script_cron {{ target_vcs | trim }}"
       #- "{{ target_hosts | trim  | replace('\n', ', ') }}"
 
