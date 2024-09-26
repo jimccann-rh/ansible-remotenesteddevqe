@@ -84,9 +84,9 @@
 #        msg: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'] }}"
 
     - set_fact: dont go over
-        cpuover: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuCapacityMhz'] - 10000
-        memover: cluster_info['clusters'][vc_cluster]['resource_summary']['memCapacityMB'] - 10000
-        dskover: cluster_info['clusters'][vc_cluster]['resource_summary']['storageCapacityMB'] - 10000
+        cpuover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['cpuCapacityMhz'] - 10000 }}"
+        memover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['memCapacityMB'] - 10000 }}"
+        dskover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['storageCapacityMB'] - 10000 }}"
 
     - debug:
         msg: 
