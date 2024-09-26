@@ -24,13 +24,13 @@
       - "hour: {{ cron_time.split()[1] }}"
       - "day: {{ cron_time.split()[2] }}"
       - "month: {{ cron_time.split()[3] }}"
-      - "{{ ansible_user }}"
-      - "{{ target_vcs }}"
-      - "{{ cron_job }}"
-      - "{{ target_hosts | replace('\n', ', ') }}"
-      - "{{ converth }}"
-      - "{{ convertv }}"
-      - "script_cron {{ target_vcs | trim }}"
+      #- "{{ ansible_user }}"
+      #- "{{ target_vcs }}"
+      #- "{{ cron_job }}"
+      #- "{{ target_hosts | replace('\n', ', ') }}"
+      #- "{{ converth }}"
+      #- "{{ convertv }}"
+      #- "script_cron {{ target_vcs | trim }}"
       #- "{{ target_hosts | trim  | replace('\n', ',') }}"
 
 - name: Create the cron job
@@ -54,7 +54,7 @@
     #name: "script_cron {{ target_vcs | trim }}"
   when: cleanupcron | bool
 
-- debug:
-    msg:  
-      - "script_cron {{ target_vcs | trim }}"
-      - "script_cron {{ convertv }}"
+#- debug:
+#    msg:  
+#      - "script_cron {{ target_vcs | trim }}"
+#      - "script_cron {{ convertv }}"

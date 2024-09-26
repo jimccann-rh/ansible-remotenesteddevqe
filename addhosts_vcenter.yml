@@ -106,9 +106,9 @@
       community.vmware.vmware_host_facts:
       register: host_facts
     
-    - debug:
-        msg:
-         - "{{ host_facts }}"
+#    - debug:
+#        msg:
+#         - "{{ host_facts }}"
 
     - name: Rescan HBA's for a given cluster - all found hosts will be scanned
       community.vmware.vmware_host_scanhba:
@@ -122,25 +122,25 @@
     - set_fact:
          esxip: "{{ hostvars[groups['esxi'][my_idx]].NESTEDVMIP }}"
 
-    - debug:
-        msg:
-         - "{{ host_vmhbas.hosts_disk_info }}"
-         - "{{ esxip }}"
+#    - debug:
+#        msg:
+#         - "{{ host_vmhbas.hosts_disk_info }}"
+#         - "{{ esxip }}"
 
     - set_fact:
          vmhbainfo: "{{ host_vmhbas['hosts_disk_info'][esxip] }}"
 
-    - debug:
-        msg:
-         - "{{ vmhbainfo }}"
+#    - debug:
+#        msg:
+#         - "{{ vmhbainfo }}"
 
-    - name: Find disk by device_ctd
-      debug:
-        msg: "Disk {{ item.canonical_name }} matches vmhba0:C0:T2:L0"
-      loop: "{{ vmhbainfo }}"
-      when: item.device_ctd_list[0] == "vmhba0:C0:T2:L0"
-      #when: item.device_ctd_list
-      #when: item.device_ctd_list.contains("vmhba0:C0:T2:L0")
+#    - name: Find disk by device_ctd
+#      debug:
+#        msg: "Disk {{ item.canonical_name }} matches vmhba0:C0:T2:L0"
+#      loop: "{{ vmhbainfo }}"
+#      when: item.device_ctd_list[0] == "vmhba0:C0:T2:L0"
+#      #when: item.device_ctd_list
+#      #when: item.device_ctd_list.contains("vmhba0:C0:T2:L0")
 
 
     - name: Set disk by device_ctd
@@ -149,9 +149,9 @@
       loop: "{{ vmhbainfo }}"
       when: item.device_ctd_list[0] == "vmhba0:C0:T2:L0"
 
-    - debug:
-        msg:
-          - "{{ vmfs_dn }}"
+#    - debug:
+#        msg:
+#          - "{{ vmfs_dn }}"
 
     - name: Create datastore
       vmware_host_datastore:
