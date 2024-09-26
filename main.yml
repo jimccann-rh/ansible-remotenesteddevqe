@@ -74,7 +74,7 @@
 #        seconds: 30
 
 
-    - name: Gather cluster info from given datacenter
+    - name: "Gather cluster info from given cluster {{ vc_cluster }}"
       community.vmware.vmware_cluster_info:
         cluster_name: "{{ vc_cluster }}"
       register: cluster_info
@@ -83,7 +83,7 @@
 #    - debug:
 #        msg: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'] }}"
 
-    - name: over usage
+    - name: set static usage
       set_fact: 
         cpuover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['cpuCapacityMHz'] - 20000 }}"
         memover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['memCapacityMB'] - 98304 }}"
