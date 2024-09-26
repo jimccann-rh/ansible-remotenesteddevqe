@@ -1,5 +1,11 @@
 ---
 
+- name: set cron job fact
+  set_fact:
+    cron_job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook --connection=local -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{"["}}{{ converth }}{{"]"}} }' --extra-var='{"target_vcs"{{ ":"}} {{"["}}{{ convertv }}{{"]"}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '') }}.log 2>&1
+    #cron_job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook --connection=local -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{"["}}{{ converth }}{{"]"}} }' --extra-var='{"target_vcs"{{ ":"}} {{"["}}{{ convertv }}{{"]"}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1 
+
+
 - name: how long to let environment run
   set_fact:
     #cron_time: "{{ lookup('pipe', 'date -d \"+10 minutes\" +\"%M %H %d %m %Y\"') }}"
@@ -12,12 +18,6 @@
 
     #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace("'", '') }}"
 
-- name: set cron job fact
-  set_fact:
-    cron_job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook --connection=local -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{"["}}{{ converth }}{{"]"}} }' --extra-var='{"target_vcs"{{ ":"}} {{"["}}{{ convertv }}{{"]"}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '') }}.log 2>&1 
-    #cron_job: source /root/nested.source && cd /root/ansible-remotenesteddevqe/ ; ansible-playbook --connection=local -i hosts main.yml --extra-var cleanupcron=true --extra-var version={{ '"' }}{{ version }}{{ '"' }} --extra-var='{"target_hosts"{{ ":" }} {{"["}}{{ converth }}{{"]"}} }' --extra-var='{"target_vcs"{{ ":"}} {{"["}}{{ convertv }}{{"]"}} }' --extra-var removevsphere=true -t removevsphere >> /tmp/{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '')  }}.log 2>&1 
-
-
 
 - debug:
     msg: 
@@ -27,7 +27,7 @@
       - "day: {{ cron_time.split()[2] }}"
       - "month: {{ cron_time.split()[3] }}"
       #- "{{ ansible_user }}"
-      #- "{{ target_vcs }}"
+      - "{{ target_vcs }}"
       #- "{{ cron_job }}"
       #- "{{ target_hosts | replace('\n', ', ') }}"
       #- "{{ converth }}"
