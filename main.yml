@@ -85,9 +85,9 @@
 
     - name: over usage
       set_fact: 
-        cpuover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['cpuCapacityMHz'] - 10000 }}"
-        memover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['memCapacityMB'] - 10000 }}"
-        dskover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['storageCapacityMB'] - 10000 }}"
+        cpuover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['cpuCapacityMHz'] - 100000 }}"
+        memover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['memCapacityMB'] - 100000 }}"
+        dskover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['storageCapacityMB'] - 100000 }}"
 
     - debug:
         msg: 
@@ -110,8 +110,9 @@
         loop_var: resource_value
       fail:
       when: 
-        - resource_name == "cpuUsedMHz" and resource_value < 65000000
-        - resource_name == "memUsedMB" and resource_value < 65000000
+        - resource_name == "cpuUsedMHz" and resource_value < cpuover
+        - resource_name == "memUsedMB" and resource_value < memover
+        - resource_name == "storageUsedMB" and resource_value < dskover
 
 
 
