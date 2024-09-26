@@ -90,6 +90,19 @@
       when: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuUsedMHz'] > 650000
 #      when: cluster_info['clusters'][vc_cluster]['resource_summary']['memUsedMB'] > 650000
 
+
+    - name: Check resource usage
+      loop: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'].items() }}"
+      loop_control:
+        index_var: resource_name
+        loop_var: resource_value
+      fail:
+      when: 
+        - resource_name == "cpuUsedMHz" and resource_value > 650000
+        - resource_name == "memUsedMB" and resource_value > 650000
+
+
+
 #    - name: Check resource usage
 #      loop: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'].items() }}"
 #      loop_control:
