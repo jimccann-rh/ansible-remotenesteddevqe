@@ -91,9 +91,9 @@
     - debug:
         msg: 
           - "{{ cluster_info['clusters'][vc_cluster]['resource_summary'] }}"
-          - cpuover
-          - memover
-          - dskover
+          - "{{ cpuover }}"
+          - "{{ memover }}"
+          - "{{ dskover }}"
 
     - name: Check CPU usage
       fail:
