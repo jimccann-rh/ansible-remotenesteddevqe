@@ -27,11 +27,11 @@
       #- "{{ ansible_user }}"
       #- "{{ target_vcs }}"
       #- "{{ cron_job }}"
-      #- "{{ target_hosts | replace('\n', ', ') }}"
-      #- "{{ converth }}"
+      - "{{ target_hosts | replace('\n', ', ') }}"
+      - "{{ converth }}"
       #- "{{ convertv }}"
       #- "script_cron {{ target_vcs | trim }}"
-      #- "{{ target_hosts | trim  | replace('\n', ',') }}"
+      - "{{ target_hosts | trim  | replace('\n', ',') }}"
 
 - name: Create the cron job
   cron:
