@@ -9,7 +9,8 @@
 
     converth: "{{ target_hosts | replace('\n', ', ') }}"
     convertv: "{{ target_vcs | replace('\n', ', ') }}"
-    cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace('[\"]', '')  }}"
+    #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace('[\"]', '')  }}"
+    #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace('[\"]', '')  }}"
 
     #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace("'", '') }}"
 
@@ -34,7 +35,7 @@
       #- "{{ converth }}"
       - "{{ convertv }}"
       #- {{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("\'", '') }}
-      - "{{ cleanvcs }}"
+      #- "{{ cleanvcs }}"
       #- "script_cron {{ target_vcs | trim }}"
       #- "{{ target_hosts | trim  | replace('\n', ', ') }}"
 
@@ -42,8 +43,8 @@
   cron:
     state: present
     #name: "script_cron {{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '') }}"
-    name: "script_cron {{ cleanvcs }}"
-    #name: "script_cron {{ convertv }}"
+    #name: "script_cron {{ cleanvcs }}"
+    name: "script_cron {{ convertv }}"
     #name: "script_cron {{ target_vcs | trim }}"
     user: "{{ ansible_user }}" 
     #user: "{{ lookup('env', 'USER') }}" 
@@ -57,7 +58,11 @@
 - name: Remove the cron job
   cron:
     state: absent
-    name: "script_cron {{ cleanvcs }}"
+    #name: "script_cron {{ cleanvcs }}"
+
+    name: "script_cron {{ convertv | replace(\"'\",'')  }}"
+    #name: "script_cron {{ cleanvcs | replace(\"'\",'')  }}"
+
     #name: "script_cron {{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '') }}"
     #name: "script_cron {{ convertv }}"
     #name: "script_cron {{ target_vcs | trim }}"
