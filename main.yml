@@ -81,7 +81,14 @@
 
 
     - debug:
-        msg: "{{ cluster_info['resource_summary'] }}"
+        msg: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'] }}"
+
+
+    - name: Check CPU usage
+      fail:
+        msg: "CPU usage is too high"
+      when: cluster_info.resource_summary.cpuUsedMHz > 650000
+
 
     - block:
        - name: Needed packages on system
