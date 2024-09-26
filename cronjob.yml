@@ -1,5 +1,10 @@
 ---
 
+- debug: 
+    msg: 
+      - "{{ target_vcs[0] }}"
+
+
 
 - name: how long to let environment run
   set_fact:
