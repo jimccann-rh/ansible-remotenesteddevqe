@@ -73,6 +73,17 @@
 #    - pause:
 #        seconds: 30
 
+
+    - name: Gather cluster info from given datacenter
+      community.vmware.vmware_cluster_info:
+        datacenter: "{{ vc_cluster }}"
+      delegate_to: localhost
+      register: cluster_info
+
+
+    - debug:
+        msg: "{{ cluster_info }}"
+
     - block:
        - name: Needed packages on system
          include_tasks: packlocal.yml
