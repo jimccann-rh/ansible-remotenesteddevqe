@@ -105,7 +105,7 @@
 
     - name: Check resource usage
       fail:
-        msg: "Not enough resources for {{ resource_value }}"
+        msg: "Not enough resources"
       loop: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'].items() }}"
       loop_control:
         index_var: resource_name
