@@ -87,7 +87,7 @@
     - name: Check CPU usage
       fail:
         msg: "CPU usage is too high in cluster REMOVE RESOURCES"
-      when: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuUsedMHz'] > 650000
+      when: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuUsedMHz'] < 650000
 #      when: cluster_info['clusters'][vc_cluster]['resource_summary']['memUsedMB'] > 650000
 
 
