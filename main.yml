@@ -85,8 +85,8 @@
 
     - name: over usage
       set_fact: 
-        cpuover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['cpuCapacityMHz'] - 900000 }}"
-        memover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['memCapacityMB'] - 900000 }}"
+        cpuover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['cpuCapacityMHz'] - 100000 }}"
+        memover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['memCapacityMB'] - 9900000 }}"
         dskover: "{{ cluster_info['clusters'][vc_cluster]['resource_summary']['storageCapacityMB'] - 900000 }}"
 
     - debug:
