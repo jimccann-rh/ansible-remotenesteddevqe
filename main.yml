@@ -99,17 +99,17 @@
     - name: Check resource usage
       fail:
         msg: "CPU usage is too high in cluster REMOVE RESOURCES"
-      when: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuUsedMHz'] > cpuover
+      when: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuUsedMHz'] > (cpuover | int)
 
     - name: Check resource usage
       fail:
         msg: "MEMORY usage is too high in cluster REMOVE RESOURCES"
-      when: cluster_info['clusters'][vc_cluster]['resource_summary']['memUsedMB'] > memover
+      when: cluster_info['clusters'][vc_cluster]['resource_summary']['memUsedMB'] > (memover | int)
 
     - name: Check resource usage
       fail:
         msg: "DISK usage is too high in cluster REMOVE RESOURCES"
-      when: cluster_info['clusters'][vc_cluster]['resource_summary']['storageUsedMB'] > dskover
+      when: cluster_info['clusters'][vc_cluster]['resource_summary']['storageUsedMB'] > (dskover | int)
 
 
 
