@@ -8,7 +8,7 @@
 
     converth: "{{ target_hosts | replace('\n', ', ') }}"
     convertv: "{{ target_vcs | replace('\n', ', ') }}"
-    cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '') }}"
+    cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("\'", '') }}"
 
 - name: set cron job fact
   set_fact:
