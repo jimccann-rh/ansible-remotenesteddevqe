@@ -110,9 +110,9 @@
         loop_var: resource_value
       fail:
       when: 
-        - resource_name == "cpuUsedMHz" and resource_value > cpuover
-        - resource_name == "memUsedMB" and resource_value > memover
-        - resource_name == "storageUsedMB" and resource_value > dskover
+        - resource_name == "cpuUsedMHz" and (resource_value | int) > cpuover
+        - resource_name == "memUsedMB" and (resource_value | int) > memover
+        - resource_name == "storageUsedMB" (resource_value | int) > dskover
 
 
 
