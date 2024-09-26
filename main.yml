@@ -96,41 +96,35 @@
           - "{{ memover }}"
           - "{{ dskover }}"
 
-    - name: Check CPU usage
+    - name: Check resource usage
       fail:
         msg: "CPU usage is too high in cluster REMOVE RESOURCES"
-      when: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuUsedMHz'] > 650000
-#      when: cluster_info['clusters'][vc_cluster]['resource_summary']['memUsedMB'] > 650000
-
+      when: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuUsedMHz'] > cpuover
 
     - name: Check resource usage
       fail:
-        msg: "Not enough resources"
-      loop: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'].items() }}"
-      loop_control:
-        index_var: resource_name
-        loop_var: resource_value
-      when: 
-        - resource_name == "cpuUsedMHz" and (resource_value | int) == resource_value 
-        - resource_name == "memUsedMB" and (resource_value | int) < memover
-        - resource_name == "storageUsedMB" (resource_value | int) < dskover
+        msg: "MEMORY usage is too high in cluster REMOVE RESOURCES"
+      when: cluster_info['clusters'][vc_cluster]['resource_summary']['memUsedMB'] > memover
+
+    - name: Check resource usage
+      fail:
+        msg: "DISK usage is too high in cluster REMOVE RESOURCES"
+      when: cluster_info['clusters'][vc_cluster]['resource_summary']['storageUsedMB'] > dskover
 
 
 
 #    - name: Check resource usage
+#      fail:
+#        msg: "Not enough resources"
 #      loop: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'].items() }}"
 #      loop_control:
 #        index_var: resource_name
 #        loop_var: resource_value
-#      tasks:
-#        - name: Check CPU usage
-#          fail:
-#            msg: "CPU usage is too high in cluster REMOVE RESOURCES"
-#          when: resource_name == "cpuUsedMHz" and resource_value > 650000
-#        - name: Check memory usage
-#          fail:
-#            msg: "Memory usage is too high in cluster REMOVE RESOURCES"
-#          when: resource_name == "memUsedMB" and resource_value > 650000
+#      when: 
+#        - resource_name == "cpuUsedMHz" and (resource_value | int) == resource_value 
+#        - resource_name == "memUsedMB" and (resource_value | int) < memover
+#        - resource_name == "storageUsedMB" (resource_value | int) < dskover
+#
 
     - block:
        - name: Needed packages on system
