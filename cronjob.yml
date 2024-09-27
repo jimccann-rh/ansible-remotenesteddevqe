@@ -17,7 +17,7 @@
     #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace('[\"]', '')  }}"
     #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace('[\"]', '')  }}"
 
-    cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace("'", '') }}"
+    #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace("'", '') }}"
 
 - name: set cron job fact
   set_fact:
@@ -41,7 +41,7 @@
       - "{{ convertv }}"
       - "{{ convertv[0] }}"
       #- {{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("\'", '') }}
-      - "{{ cleanvcs }}"
+      #- "{{ cleanvcs }}"
       #- "script_cron {{ target_vcs | trim }}"
       #- "{{ target_hosts | trim  | replace('\n', ', ') }}"
 
