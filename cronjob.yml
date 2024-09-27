@@ -2,7 +2,7 @@
 
 - debug: 
     msg: 
-      - "{{ target_vcs[0] }}"
+      - "{{ target_vcs }}"
 
 
 
@@ -17,7 +17,7 @@
     #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace('[\"]', '')  }}"
     #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace('[\"]', '')  }}"
 
-    #cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace("'", '') }}"
+    cleanvcs: "{{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') | regex_replace("'", '') }}"
 
 - name: set cron job fact
   set_fact:
