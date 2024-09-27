@@ -34,7 +34,8 @@
       - "day: {{ cron_time.split()[2] }}"
       - "month: {{ cron_time.split()[3] }}"
       #- "{{ ansible_user }}"
-      #- "{{ target_vcs }}"
+      - "{{ target_vcs }}"
+      - "{{ target_vcs[0] }}"
       #- "{{ cron_job }}"
       #- "{{ target_hosts | replace('\n', ', ') }}"
       - "{{ converth }}"
@@ -49,8 +50,8 @@
   cron:
     state: present
     #name: "script_cron {{ target_vcs | replace('\n', ',') | replace('[', '') | replace(']', '') |  regex_replace("'", '') }}"
-    name: "script_cron {{ cleanvcs }}"
-    #name: "script_cron {{ convertv[0] }}"
+    #name: "script_cron {{ cleanvcs }}"
+    name: "script_cron {{ target_vcs }}"
     #name: "script_cron {{ target_vcs[0]}}"
     #name: "script_cron {{ target_vcs | trim }}"
     user: "{{ ansible_user }}" 
