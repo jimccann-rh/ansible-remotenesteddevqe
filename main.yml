@@ -65,20 +65,10 @@
 
   tasks:
 
-#    - block:
-#       - name: Set cron 
-#         include_tasks: cronjob.yml
-##      when: tempenviro | bool
-
-#    - pause:
-#        seconds: 30
-
-
     - name: "Gather cluster info from given cluster {{ vc_cluster }}"
       community.vmware.vmware_cluster_info:
         cluster_name: "{{ vc_cluster }}"
       register: cluster_info
-
 
 #    - debug:
 #        msg: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'] }}"
@@ -110,21 +100,6 @@
       fail:
         msg: "DISK usage is too high in cluster REMOVE RESOURCES"
       when: cluster_info['clusters'][vc_cluster]['resource_summary']['storageUsedMB'] > (dskover | int)
-
-
-
-#    - name: Check resource usage
-#      fail:
-#        msg: "Not enough resources"
-#      loop: "{{ cluster_info['clusters'][vc_cluster]['resource_summary'].items() }}"
-#      loop_control:
-#        index_var: resource_name
-#        loop_var: resource_value
-#      when: 
-#        - resource_name == "cpuUsedMHz" and (resource_value | int) > resource_value 
-#        - resource_name == "memUsedMB" and (resource_value | int) > memover
-#        - resource_name == "storageUsedMB" (resource_value | int) > dskover
-#
 
     - block:
        - name: Needed packages on system
