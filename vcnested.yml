@@ -112,7 +112,7 @@
 #    - debug:
 #        msg:  "info is: {{ nested_vm.instance }}"
 
-    - name: Pause while reboots itself
+    - name: "Pause while {{ host_fact_hostname }} reboots itself"
       pause:
         seconds: 300
 
