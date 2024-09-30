@@ -86,17 +86,17 @@
           - "{{ memover }}"
           - "{{ dskover }}"
 
-    - name: Check resource usage
+    - name: Check resource usage CPU
       fail:
         msg: "CPU usage is too high in cluster REMOVE RESOURCES"
       when: cluster_info['clusters'][vc_cluster]['resource_summary']['cpuUsedMHz'] > (cpuover | int)
 
-    - name: Check resource usage
+    - name: Check resource usage MEMORY
       fail:
         msg: "MEMORY usage is too high in cluster REMOVE RESOURCES"
       when: cluster_info['clusters'][vc_cluster]['resource_summary']['memUsedMB'] > (memover | int)
 
-    - name: Check resource usage
+    - name: Check resource usage DISK
       fail:
         msg: "DISK usage is too high in cluster REMOVE RESOURCES"
       when: cluster_info['clusters'][vc_cluster]['resource_summary']['storageUsedMB'] > (dskover | int)
