@@ -231,7 +231,10 @@
     - block:
 
        - debug:
-           msg: "***** {{ host_fact_name }} VCENTER IP ADDRESS *****"
+           msg: 
+             - "***** {{ host_fact_name }} VCENTER IP ADDRESS *****"
+             - "Login account for vCenter ***** administrator@{{ vc_fact_domain }} *****"
+             - "Password was set at the start of the Launch Template in AAP"
            #msg: "***** {{ host_fact_name }} VCENTER IP ADDRESS ***** password is ***** {{ vc_fact_password }} *****"
          loop: "{{ groups['vc'] | list }}"
          loop_control:
