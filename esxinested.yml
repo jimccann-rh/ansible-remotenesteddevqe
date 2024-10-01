@@ -77,7 +77,7 @@
         disk_provisioning: thin
         networks:
             "VM Network": "{{ vc_fact_deployment_network }}"
-#            "VM Network": "{{ vc_fact_deployment_network2 }}"
+            "VM Network": "{{ vc_fact_deployment_network2 }}"
         wait_for_ip_address: true
         validate_certs: no
         inject_ovf_env: true
