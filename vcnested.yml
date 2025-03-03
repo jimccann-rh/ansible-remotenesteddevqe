@@ -59,12 +59,6 @@
           - guest.ipAddress
       register: nested_vm
 
-    - name: "Does VC virtual machine {{ host_fact_hostname }} get dns name"
-      community.vmware.vmware_guest_info:
-        datacenter: "{{ vc_datacenter }}"
-        name: "{{ host_fact_hostname }}"
-      register: nested_vm_dns
-
     - debug:
         msg:  "ip is: {{ nested_vm.instance.guest.ipAddress }}"
 
@@ -132,6 +126,11 @@
       until: guest_info.instance.guest_tools_status == "guestToolsRunning"
       retries: 60
       delay: 30
+
+
+    - name: Set vc name
+      ansible.builtin.set_fact:
+        host_fact_hostname_dns: "{{ guest_info.instance.hostname }}"
 
     - name: "Does VC virtual machine {{ host_fact_hostname }} exist get ip"
       community.vmware.vmware_guest_info:
