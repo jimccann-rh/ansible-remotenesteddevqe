@@ -59,6 +59,12 @@
           - guest.ipAddress
       register: nested_vm
 
+    - name: "Does VC virtual machine {{ host_fact_hostname }} get dns name"
+        community.vmware.vmware_guest_info:
+          datacenter: "{{ vc_datacenter }}"
+          name: "{{ host_fact_hostname }}"
+        register: nested_vm_dns
+
     - debug:
         msg:  "ip is: {{ nested_vm.instance.guest.ipAddress }}"
 
