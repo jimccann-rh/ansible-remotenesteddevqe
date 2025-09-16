@@ -121,10 +121,10 @@
       when: '"8" in version'
 
     - block:
->>       - name: Include vars of vcenter_host-9.yml # E: wrong indentation: expected 8 but found 7
-           ansible.builtin.include_vars:
-             file: vcenter_host-9.yml
-        when: '"9" in version'
+>>     - name: Include vars of vcenter_host-9.yml # E: wrong indentation: expected 8 but found 7
+         ansible.builtin.include_vars:
+           file: vcenter_host-9.yml
+      when: '"9" in version'
 
     - block:
        - name: Deploy ova of ESXi
