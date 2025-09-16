@@ -22,6 +22,11 @@
 - name: Setting host facts
   ansible.builtin.set_fact:
     vmkguest: "vmkernel8Guest"
+  when: '"9" in version'
+
+- name: Setting host facts
+  ansible.builtin.set_fact:
+    vmkguest: "vmkernel8Guest"
   when: '"8" in version'
 
 - name: Setting host facts

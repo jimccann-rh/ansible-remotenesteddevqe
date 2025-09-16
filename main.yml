@@ -112,21 +112,18 @@
        - name: Include vars of vcenter_host-7.yml
          ansible.builtin.include_vars:
            file: vcenter_host-7.yml
-
       when: '"7" in version'
 
     - block:
        - name: Include vars of vcenter_host-8.yml
          ansible.builtin.include_vars:
            file: vcenter_host-8.yml
-
       when: '"8" in version'
 
     - block:
 >>       - name: Include vars of vcenter_host-9.yml # E: wrong indentation: expected 8 but found 7
            ansible.builtin.include_vars:
              file: vcenter_host-9.yml
-
         when: '"9" in version'
 
     - block:
