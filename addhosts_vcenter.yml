@@ -214,17 +214,17 @@
       validate_certs: false
 
 
-- name: Set Allowed vCLS Datastores
-  community.vmware.vmware_cluster_vcls:
+- block:
+    - name: Set Allowed vCLS Datastores
+      community.vmware.vmware_cluster_vcls:
+        hostname: "{{ hostvars[groups['vc'][0]].NESTEDVMIP }}"
+        password: "{{ vc_fact_password }}"
+        username: 'administrator@{{ vc_fact_domain }}'
+        validate_certs: false
+        datacenter: '{{ vc_fact_datacenter1 }}'
+        cluster_name: '{{ vc_fact_cluster1 }}'
+        allowed_datastores: "Datastore-{{ hostvars[groups['esxi'][my_idx]].NESTEDVMIP }}"
+   #    allowed_datastores: 
+   #      - "Datastore-10.93.60.221"
+   ##      - "{{ vmfs_dn }}"
   ignore_errors: true
-    hostname: "{{ hostvars[groups['vc'][0]].NESTEDVMIP }}"
-    password: "{{ vc_fact_password }}"
-    username: 'administrator@{{ vc_fact_domain }}'
-    validate_certs: false
-    datacenter: '{{ vc_fact_datacenter1 }}'
-    cluster_name: '{{ vc_fact_cluster1 }}'
-    allowed_datastores: "Datastore-{{ hostvars[groups['esxi'][my_idx]].NESTEDVMIP }}"
-#    allowed_datastores: 
-#      - "Datastore-10.93.60.221"
-##      - "{{ vmfs_dn }}"
-#- pause:
