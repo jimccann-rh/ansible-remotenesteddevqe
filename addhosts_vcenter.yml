@@ -216,6 +216,7 @@
 
 - name: Set Allowed vCLS Datastores
   community.vmware.vmware_cluster_vcls:
+  ignore_errors: true
     hostname: "{{ hostvars[groups['vc'][0]].NESTEDVMIP }}"
     password: "{{ vc_fact_password }}"
     username: 'administrator@{{ vc_fact_domain }}'
