@@ -23,7 +23,8 @@
       community.vmware.vmware_dvswitch:
         datacenter: "{{ vcdc }}"
         switch: "dvSwitch-nested" 
-        version: 6.6.0
+        version: 7.0.0
+        #version: 6.6.0
         mtu: 9000
         uplink_quantity: 1
         state: present
